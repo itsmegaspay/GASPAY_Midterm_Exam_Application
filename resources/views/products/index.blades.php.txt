@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime Collection</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #0f0f1a;
+            color: #eee;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 3px solid #e94560;
+        }
+
+        header h1 { font-size: 2.5rem; color: #e94560; letter-spacing: 2px; }
+        header p  { color: #aaa; margin-top: 0.5rem; }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #16213e;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        thead {
+            background: #e94560;
+            color: #fff;
+        }
+
+        thead th {
+            padding: 1rem 1.2rem;
+            text-align: left;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid #1a1a3e;
+            transition: background 0.2s;
+        }
+
+        tbody tr:hover { background: #1a1a3e; }
+
+        tbody td {
+            padding: 1rem 1.2rem;
+            font-size: 0.92rem;
+            color: #ccc;
+        }
+
+        tbody td:first-child {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 700;
+        }
+
+        .badge.completed  { background: #1db954; color: #000; }
+        .badge.ongoing    { background: #f0a500; color: #000; }
+        .badge.on-hiatus  { background: #888;    color: #fff; }
+
+        .rating { color: #f0a500; font-weight: 700; }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #555;
+            font-size: 0.85rem;
+            margin-top: 2rem;
+            border-top: 1px solid #1a1a3e;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>🎌 Anime Collection</h1>
+    <p>Midterm Exam — Laravel Application | Theme: Anime</p>
+</header>
+
+<div class="container">
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Title</th>
+                <th>Genre</th>
+                <th>Studio</th>
+                <th>Episodes</th>
+                <th>Rating</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($products as $index => $anime)
+            <tr>
+                <td>{{ $index + 1 }}</td>
+                <td>{{ $anime['title'] }}</td>
+                <td>{{ $anime['genre'] }}</td>
+                <td>{{ $anime['studio'] }}</td>
+                <td>{{ $anime['episodes'] }}</td>
+                <td class="rating">⭐ {{ $anime['rating'] }}</td>
+                <td>
+                    @php $statusClass = strtolower(str_replace(' ', '-', $anime['status'])); @endphp
+                    <span class="badge {{ $statusClass }}">{{ $anime['status'] }}</span>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
+
+<footer>
+    &copy; {{ date('Y') }} Anime Collection &mdash; Laravel Midterm Exam Application
+</footer>
+
+</body>
+</html>
